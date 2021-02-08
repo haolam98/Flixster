@@ -1,9 +1,6 @@
 package com.example.flixster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.os.Parcel;
 import android.util.Log;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -40,7 +37,7 @@ public class DetailActivity extends YouTubeBaseActivity {
 
         //initiate
         tvOverview = findViewById(R.id.tvOverview);
-        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle = findViewById(R.id.detail_title);
         ratingBar = findViewById(R.id.ratingBar);
         youTubePlayerView = findViewById(R.id.player);
 

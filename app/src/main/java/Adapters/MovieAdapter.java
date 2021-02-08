@@ -32,6 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
 
     public MovieAdapter(Context context, List<Movie> movies) {
+        Log.d("MovieAdapter", "Context: " + context.toString());
         this.context = context;
         this.movies = movies;
     }
@@ -72,14 +73,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.detailContainer);
+            tvTitle = itemView.findViewById(R.id.item_title);
+            tvOverview = itemView.findViewById(R.id.item_overview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             container = itemView.findViewById(R.id.item_container);
-
         }
 
         public void bind(final Movie movie) {
+
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
 
@@ -89,16 +90,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             {
                 imageUrl = movie.getBackdropPath();
+                Log.d("MovieAdapter", "Orientation: Landscape ");
             }
             else {
-                // else phon is portrait mode
+                // else phone is portrait mode
                 imageUrl = movie.getPosterPath();
+                Log.d("MovieAdapter", "Orientation: Portrait ");
             }
 
-            Glide.with(context).load(imageUrl).into(ivPoster);
 
+            Glide.with(context).load(imageUrl).into(ivPoster);
+            Log.d("MovieAdapter", "Register onClickListener for item_container ");
             //1. Register Click listener on the whole row
-            container.setOnClickListener(new View.OnClickListener() {
+            tvTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //2. navigate to new activity on tap
@@ -111,6 +115,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                     context.startActivity(i);
                 }
             });
+//            container.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //2. navigate to new activity on tap
+//                    //Toast.makeText(context, movie.getTitle(),Toast.LENGTH_SHORT).show();
+//
+//                    Intent i = new Intent(context, DetailActivity.class);
+//                    //pass data to detail activity
+//                    i.putExtra("movie", Parcels.wrap(movie));
+//                    //i.putExtra("movie", );
+//                    context.startActivity(i);
+//                }
+//            });
+            Log.d("MovieAdapter", "AFTER Register onClickListener for item_container ");
         }
     }
 }
